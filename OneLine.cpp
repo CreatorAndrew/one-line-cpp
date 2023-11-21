@@ -25,7 +25,7 @@ bool command_found(std::string command) {
     struct stat sb;
     #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
         std::string delimiter = ";";
-    #elif __unix__ || __APPLE__
+    #else
         std::string delimiter = ":";
     #endif
     std::string path = std::string(getenv("PATH"));
@@ -60,7 +60,7 @@ std::string substring_before(std::string original, std::string substring, int co
 std::string drive_letter(std::string path) {
     std::string letters[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     std::string drive_letter = "";
-    for (int i = 0; i < 26; i++) {
+    for (int i = 0; i < sizeof(letters) / sizeof(letters[0]); i++) {
         drive_letter = " " + letters[i] + ":";
         if ((int) path.find(drive_letter) > -1) break;
     }
@@ -69,22 +69,19 @@ std::string drive_letter(std::string path) {
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
     int WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nShowCmd) {
-#else
-    int main(int argc, char **argv) {
-#endif
-    #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
         int argc, start_count = 0;
         LPWSTR *arg_list = CommandLineToArgvW(GetCommandLineW(), &argc);
         std::vector<std::string> argv;
         for (int i = 0; i < argc; i++) argv.push_back(wstring_to_string(arg_list[i]));
         std::string os_drive = "C:/", root_directory = "C:/";
-    #elif __unix__ || __APPLE__
+#else
+    int main(int argc, char **argv) {
         int start_count = 1;
         std::string os_drive = "Z:/", root_directory = "/";
-    #endif
+#endif
     std::string executable = argv[0];
     executable = replace_all(boost::filesystem::system_complete(executable).string(), "\\", "/");
-    #if __unix__ || __APPLE__
+    #if not (defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__))
         executable = "Z:" + executable;
     #endif
     std::vector<std::string> args;
