@@ -66,7 +66,7 @@ string substr_up_to(string orig, string substr, int times) {
     int WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmdline, int nShowCmd) {
         ShowWindow(GetConsoleWindow(), SW_HIDE);
         int argc, once = 0;
-        LPWSTR *arg_list = CommandlineToArgvW(GetCommandlineW(), &argc);
+        LPWSTR *arg_list = CommandLineToArgvW(GetCommandLineW(), &argc);
         vector<string> argv;
         for (int i = 0; i < argc; i++) argv.push_back(wstring_to_string(arg_list[i]));
         string os_drive = "C:/", root_dir = "C:/";
