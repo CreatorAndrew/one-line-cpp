@@ -55,9 +55,9 @@ string drive(string path) {
     string wstring_to_string(const wstring& s) {
         int len;
         int slength = (int)s.length() + 1;
-        len = WideCharToMultiByte(CP_ACP, 0, s.c_str(), slength, 0, 0, 0, 0); 
+        len = WideCharToMultiByte(CP_ACP, 0, s.c_str(), slength, 0, 0, 0, 0);
         char* buf = new char[len];
-        WideCharToMultiByte(CP_ACP, 0, s.c_str(), slength, buf, len, 0, 0); 
+        WideCharToMultiByte(CP_ACP, 0, s.c_str(), slength, buf, len, 0, 0);
         string r(buf);
         delete[] buf;
         return r;
@@ -120,7 +120,7 @@ string drive(string path) {
             line = line.substr(0, line.rfind("/"));
             if ((int) line.find("/") == -1) line = "";
         }
-        for (int j = segs.size() - 1; j >= 0 ; j--) {
+        for (int j = segs.size() - 1; j >= 0; j--) {
             bool quote = false;
             if ((int) segs[j].find(" ") > -1) {
                 try {
