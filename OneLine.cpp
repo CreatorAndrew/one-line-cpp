@@ -76,7 +76,7 @@ string substr_up_to(string orig, string substr, int times) {
         string os_drive = "Z:/", root_dir = "/";
 #endif
     string here = replace_all(system_complete(argv[0]).string(), "\\", "/");
-    #if not (defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__))
+    #if !(defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__))
         here = "Z:" + here;
     #endif
     vector<string> args;
