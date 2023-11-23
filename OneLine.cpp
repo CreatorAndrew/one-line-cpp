@@ -20,6 +20,16 @@ bool command_found(string command) {
     return false;
 }
 
+string drive(string path) {
+    string letters[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+    string drive = "";
+    for (int i = 0; i < sizeof(letters) / sizeof(letters[0]); i++) {
+        drive = " " + letters[i] + ":";
+        if ((int) path.find(drive) > -1) break;
+    }
+    return drive;
+}
+
 string replace(string orig, string from, string to) {
     string temp = orig;
     if ((int) temp.find(from) > -1) temp = temp.replace(temp.find(from), from.length(), to);
@@ -37,16 +47,6 @@ string substr_up_to(string orig, string substr, int times) {
     for (int i = 0; i < times + 1; i++) if ((int) temp.find(substr) > -1) temp = temp.substr(0, temp.rfind(substr));
     temp.append(substr);
     return temp;
-}
-
-string drive(string path) {
-    string letters[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-    string drive = "";
-    for (int i = 0; i < sizeof(letters) / sizeof(letters[0]); i++) {
-        drive = " " + letters[i] + ":";
-        if ((int) path.find(drive) > -1) break;
-    }
-    return drive;
 }
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
