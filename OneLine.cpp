@@ -32,7 +32,7 @@ string replace_all(string orig, string from, string to) {
     return temp;
 }
 
-string substring_up_to(string orig, string substr, int times) {
+string substr_up_to(string orig, string substr, int times) {
     string temp = orig;
     for (int i = 0; i < times + 1; i++) if ((int) temp.find(substr) > -1) temp = temp.substr(0, temp.rfind(substr));
     temp.append(substr);
@@ -112,7 +112,7 @@ string drive(string path) {
         }
         if (prev.empty()) prev = "../";
         line = args[i];
-        line = replace_all(replace_all(replace(line, prev, substring_up_to(here, "/", times)), "./", substring_up_to(here, "/", once)) + "/", "\\", "/");
+        line = replace_all(replace_all(replace(line, prev, substr_up_to(here, "/", times)), "./", substr_up_to(here, "/", once)) + "/", "\\", "/");
         vector<string> segs;
         while ((int) line.find("/") > -1) {
             segs.push_back(line.substr(0, line.rfind("/")));
