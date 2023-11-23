@@ -112,7 +112,7 @@ string substr_up_to(string orig, string substr, int times) {
         }
         if (prev.empty()) prev = "../";
         line = args[i];
-        line = replace_all(replace_all(replace(line, prev, substr_up_to(here, "/", times)), "./", substr_up_to(here, "/", once)) + "/", "\\", "/");
+        line = replace_all(replace(replace_all(line, "\\", "/"), prev, substr_up_to(here, "/", times)), "./", substr_up_to(here, "/", once)) + "/";
         vector<string> segs;
         while ((int) line.find("/") > -1) {
             segs.push_back(line.substr(0, line.rfind("/")));
